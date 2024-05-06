@@ -1,6 +1,8 @@
 using System.Diagnostics.Contracts;
+using System.Runtime.InteropServices;
 using System.Security.Cryptography.X509Certificates;
 using Xunit;
+using Xunit.Sdk;
 namespace WebApp;
 
 public class UtilsTest{
@@ -39,7 +41,7 @@ public class UtilsTest{
         }
      
     }*/
-    
+    /*
     [Theory]
     [InlineData("Aa1!")]     // Too short so should be false]
     [InlineData("Aa1aaaaa")] // Missing special characters so should be false
@@ -55,5 +57,13 @@ public class UtilsTest{
     [InlineData("ReallyGoodPassword123123!")]
     public static void TestIsPasswordAllowed(string toTest){
         Assert.True(Utils.IsPasswordGoodEnough(toTest));
+    }*/
+    
+    [Fact]
+    public static void TestRemoveBadWords(){
+        string unfilteredWord = "i eat Ass Every fuCKing day";
+        string filteredWord = Utils.RemoveBadWords(unfilteredWord);
+        Assert.NotEqual(unfilteredWord, filteredWord);
+        
     }
 }

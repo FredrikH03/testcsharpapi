@@ -61,7 +61,7 @@ public class UtilsTest{
     
     [Fact]
     public void TestRemoveBadWords(){
-        string unfilteredWord = "i fuck fucking fuckers, zamnnn!!! damn, shit, hello, test!!!";
+        string unfilteredWord = "i fuck fuck fuck fuck, hello !!! zamnnn!!! damn, shit, hello, test, fuck!!!";
         string filteredWord = Utils.RemoveBadWords(unfilteredWord);
         Assert.NotEqual(unfilteredWord, filteredWord);
         Console.WriteLine(filteredWord);

@@ -60,10 +60,16 @@ public class UtilsTest{
     }*/
     
     [Fact]
-    public static void TestRemoveBadWords(){
-        string unfilteredWord = "i eat Ass Every fuCKing day";
+    public void TestRemoveBadWords(){
+        string unfilteredWord = "i fuck fucking fuckers, zamnnn!!! damn, shit, hello, test!!!";
         string filteredWord = Utils.RemoveBadWords(unfilteredWord);
         Assert.NotEqual(unfilteredWord, filteredWord);
+        Console.WriteLine(filteredWord);
         
+    }
+    
+    [Fact]
+    public void TestRemoveMockUsers(){
+
     }
 }

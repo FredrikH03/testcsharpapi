@@ -23,7 +23,7 @@ public static class Utils {
     }
 
     public static Arr CreateMockUsers(){
-         var read = File.ReadAllText(Path.Combine("json","mock-users.json"));
+        var read = File.ReadAllText(Path.Combine("json","mock-users.json"));
         Arr mockUsers = JSON.Parse(read);
         Arr successFullyWrittenUsers = Arr();
         foreach(var user in mockUsers){
@@ -38,5 +38,27 @@ public static class Utils {
         }
         return successFullyWrittenUsers;
 
+    }
+    
+    public static string RemoveBadWords(string stringInput){
+        string unfilteredString = stringInput;
+        string? filteredString = null;
+        string[] splitString = unfilteredString.Split(' ');
+
+        var read = File.ReadAllText(Path.Combine("json","bad-words.json"));
+        Arr badWords = JSON.Parse(read);
+
+        foreach(string word in splitString){
+           if(badWords.Contains(word.ToLower())){
+            filteredString += '*' * word.Length;
+            filteredString +=  ' ';
+           } 
+           else if(!badWords.Contains(word.ToLower())){
+            filteredString += word;
+            filteredString += ' ';
+           }
+
+        }
+        return filteredString;
     }
 }

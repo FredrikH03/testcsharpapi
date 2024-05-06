@@ -12,3 +12,7 @@ Globals = Obj(new
 });
 
 Server.Start();
+//var a = new UtilsTest();
+//a.TestCreateMockUsers();
+
+//var addedUser = WebApp.Utils.CreateMockUsers();

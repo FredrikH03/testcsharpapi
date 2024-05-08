@@ -56,7 +56,7 @@ public static class Utils
         string[] splitString = unfilteredString.Split(' ');
 
         string read = File.ReadAllText(Path.Combine("json", "bad-words.json"));
-        //Arr badWords = JSON.Parse(read);
+        Obj badWords = JSON.Parse(read);
 
         foreach (string word in splitString)
         {
@@ -68,11 +68,11 @@ public static class Utils
                 filteredString += censor;
                 filteredString += ' ';
             }
-            else if (!read.Contains(removedSpecials.ToLower()))
+            /*else if (!read.Contains(removedSpecials.ToLower()))
             {
                 filteredString += word;
                 filteredString += ' ';
-            }
+            }*/
             else{
                 filteredString += word;
                 filteredString += ' ';
@@ -82,9 +82,18 @@ public static class Utils
         return filteredString;
     }
 
-    public static Arr RemoveMockUsers()
+    public static Arr DeleteMockUsers()
     {
+        var read = File.ReadAllText(Path.Combine("json", "mock-users.json"));
+        Arr mockUsers = JSON.Parse(read);
+        Arr successDeletedUsers = Arr();
+        foreach (var user in mockUsers)
+        {
+        
+            var result = SQLQueryOne(@"DELETE FROM users WHERE email = ", user.Email);
 
-        return Arr();
+        }
+        return successDeletedUsers;
+
     }
 }

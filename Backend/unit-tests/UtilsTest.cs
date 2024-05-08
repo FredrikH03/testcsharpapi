@@ -5,14 +5,15 @@ using Xunit;
 using Xunit.Sdk;
 namespace WebApp;
 
-public class UtilsTest{
+public class UtilsTest
+{
 
     //[Fact]
 
     /*public void TestSumInt(){
         //Assert.Equal()
     }*/
-    
+
     /*[Fact]
     public void TestCreateMockUsers(){
         //Read all mock users from the json file
@@ -41,35 +42,39 @@ public class UtilsTest{
         }
      
     }*/
-    /*
+
     [Theory]
     [InlineData("Aa1!")]     // Too short so should be false]
     [InlineData("Aa1aaaaa")] // Missing special characters so should be false
     [InlineData("Aa!aaaaa")] // Missing digit so should be false]
     [InlineData("AA1!AAAA")] // Missing lower character so should be false
     [InlineData("aa1!aaaa")] // Missing upper character so should be false]
-    public static void TestIsPasswordDenied(string toTest){
+    public static void TestIsPasswordDenied(string toTest)
+    {
         Assert.False(Utils.IsPasswordGoodEnough(toTest));
     }
-    
+
     [Theory]
     [InlineData("GoodPassword123!")] //should be correctomundo
     [InlineData("ReallyGoodPassword123123!")]
-    public static void TestIsPasswordAllowed(string toTest){
+    public static void TestIsPasswordAllowed(string toTest)
+    {
         Assert.True(Utils.IsPasswordGoodEnough(toTest));
-    }*/
-    
+    }
+
     [Fact]
-    public void TestRemoveBadWords(){
-        string unfilteredWord = "i fuck fuck fuck fuck, hello !!! zamnnn!!! damn, shit, hello, test, fuck!!!";
+    public void TestRemoveBadWords()
+    {
+        string unfilteredWord = "i fuck fuck!!! fuck fuck, hello !!! zamnnn!!! damn, shit, hello, test, fuck!!!";
         string filteredWord = Utils.RemoveBadWords(unfilteredWord);
         Assert.NotEqual(unfilteredWord, filteredWord);
         Console.WriteLine(filteredWord);
-        
+
     }
-    
+
     [Fact]
-    public void TestRemoveMockUsers(){
+    public void TestRemoveMockUsers()
+    {
 
     }
 }

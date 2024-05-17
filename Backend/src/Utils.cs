@@ -73,7 +73,8 @@ public static class Utils
                 filteredString += word;
                 filteredString += ' ';
             }*/
-            else{
+            else
+            {
                 filteredString += word;
                 filteredString += ' ';
             }
@@ -86,14 +87,41 @@ public static class Utils
     {
         var read = File.ReadAllText(Path.Combine("json", "mock-users.json"));
         Arr mockUsers = JSON.Parse(read);
-        Arr successDeletedUsers = Arr();
+        Arr successfullyDeletedUsers = Arr();
         foreach (var user in mockUsers)
         {
-        
-            var result = SQLQueryOne(@"DELETE FROM users WHERE email = ", user.Email);
 
+            var result = SQLQueryOne(@"DELETE FROM users WHERE email = $email", user);
+
+            if (!result.HasKey("error"))
+            {
+                user.Delete("password");
+                successfullyDeletedUsers.Push(user);
+            }
         }
-        return successDeletedUsers;
+        return successfullyDeletedUsers;
 
+    }
+    
+    public static Obj CountDomainsFromUserEmails(){
+    
+        Obj domainCount = Obj();
+        Arr usersInDb = SQLQuery("SELECT * FROM users");
+        Arr emailsInDb = usersInDb.Map(user => user.email);
+        
+        foreach(string email in emailsInDb){
+            string domain = email.Split('@')[1];
+            if(!domainCount.HasKey(domain)){
+                domainCount[$"{domain}"] = 1;
+            }
+            if(domainCount.HasKey(domain)){
+                domainCount[$"{domain}"]++;
+            }
+            else{
+                
+            }
+        }
+        
+        return domainCount;
     }
 }

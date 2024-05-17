@@ -16,16 +16,16 @@
   ],
   "products": [
     {
-      "name": "Äpple",
-      "description": "Färska och ekologiska äpplen från Småland",
-      "price": 10,
-      "categoryId": "Frukter"
+      "name": "Gurka",
+      "description": "Färsk, krispig gurka. Ekologiskt odlad i Bjärred.",
+      "price": 25,
+      "categoryId": "Grönsaker"
     }
   ],
   "comments": [
     {
-      "comment": "goda äpplen, funkar bra till saft",
-      "produktName": "Äpple",
+      "comment": "very nice gurka",
+      "productId": "Gurka",
       "userId": 3
     }
   ]

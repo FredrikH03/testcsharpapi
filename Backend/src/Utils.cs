@@ -4,6 +4,9 @@ namespace WebApp;
 
 public static class Utils
 {
+    private static readonly Arr badWords = ((Arr)JSON.Parse(
+        File.ReadAllText(FilePath("json", "bad-words.json"))
+    )).Sort((a, b) => ((string)b).Length - ((string)a).Length);
     public static int SumInts(int a, int b)
     {
         return a + b;
@@ -47,40 +50,25 @@ public static class Utils
 
     }
 
-    public static string RemoveBadWords(string stringInput)
+        public static string RemoveBadWords(string unfilteredSentence, string replaceWith = "---")
     {
-        //partially works? idk arr doesnt work so i cant really do .Contains but idk i might be doing it wrong anyways
-        string pattern = "[^a-zA-Z0-9 ]";
-        string unfilteredString = stringInput;
-        string filteredString = null;
-        string[] splitString = unfilteredString.Split(' ');
-
-        string read = File.ReadAllText(Path.Combine("json", "bad-words.json"));
-        Obj badWords = JSON.Parse(read);
-
-        foreach (string word in splitString)
+        string filteredSentence = null;
+        
+        //Arr badWords = JSON.Parse(File.ReadAllText(Path.Combine("json", "bad-words.json")));
+        Log(badWords);
+        
+        unfilteredSentence = " " + unfilteredSentence;
+        badWords.ForEach(bad =>
         {
-            string removedSpecials = Regex.Replace(word, pattern, "");
-            //string specials = Regex.Replace
-            if (read.Contains(removedSpecials.ToLower()))
-            {
-                string censor = new string('*', removedSpecials.Length);
-                filteredString += censor;
-                filteredString += ' ';
-            }
-            /*else if (!read.Contains(removedSpecials.ToLower()))
-            {
-                filteredString += word;
-                filteredString += ' ';
-            }*/
-            else
-            {
-                filteredString += word;
-                filteredString += ' ';
-            }
+            string badWord = bad;
+            string censorSymbolString = new string('*', badWord.Length);
+            string stringcompletedCensor = " " + censorSymbolString + "$1";
 
-        }
-        return filteredString;
+            var pattern = @$" {bad}([\,\.\!\?\:\; ])";
+            unfilteredSentence = Regex.Replace(
+                unfilteredSentence, pattern, stringcompletedCensor, RegexOptions.IgnoreCase);
+        });
+        return unfilteredSentence[1..];
     }
 
     public static Arr DeleteMockUsers()
@@ -112,16 +100,18 @@ public static class Utils
         foreach(string email in emailsInDb){
             string domain = email.Split('@')[1];
             if(!domainCount.HasKey(domain)){
-                domainCount[$"{domain}"] = 1;
+                domainCount[$"{domain}"] = 0;
             }
             if(domainCount.HasKey(domain)){
                 domainCount[$"{domain}"]++;
             }
-            else{
-                
-            }
         }
         
-        return domainCount;
+        var domainCountArr = domainCount.GetKeys().Map(x => Obj(new{domain = x, count = domainCount[x]}));
+        domainCountArr.Sort((a,b) => b.count - a.count);
+        var domainCountSorted = Obj();
+        domainCountArr.ForEach(x => domainCountSorted[x.domain] = x.count);
+        
+        return domainCountSorted;
     }
 }

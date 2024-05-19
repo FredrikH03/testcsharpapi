@@ -1,4 +1,4 @@
-{
+let testData = {
   "counter": 0,
   "categories": [
     {
@@ -20,6 +20,19 @@
       "description": "Färsk, krispig gurka. Ekologiskt odlad i Bjärred.",
       "price": 25,
       "categoryId": "Grönsaker"
+    },
+    {
+        "name":"Jordgubbar",
+        "description":"goda jordgubbar från skurup",
+        "price": 30,
+        "categoryId":"Frukter"
+
+    }
+    {
+        "name":"Fast Tvål",
+        "description":"bra tvål som får bort det mesta av skiten",
+        "price": 15,
+        "categoryId":"Rengöringsprodukter"
     }
   ],
   "comments": [
@@ -27,6 +40,16 @@
       "comment": "very nice gurka",
       "productId": "Gurka",
       "userId": 3
+    }
+    {
+      "comment": "skurup har dom bästa jordgubbarna",
+      "productId": "Jordgubbar",
+      "userId": 5
+    }
+    {
+      "comment": "dålig tvål, gör ingenting!!",
+      "productId": "Tvål",
+      "userId": 4
     }
   ]
 }

@@ -50,14 +50,12 @@ public static class Utils
 
     }
 
-        public static string RemoveBadWords(string unfilteredSentence, string replaceWith = "---")
+        public static string RemoveBadWords(string sentence, string replaceWith = "---")
     {
-        string filteredSentence = null;
-        
         //Arr badWords = JSON.Parse(File.ReadAllText(Path.Combine("json", "bad-words.json")));
-        Log(badWords);
+        //Log(badWords);
         
-        unfilteredSentence = " " + unfilteredSentence;
+        sentence = " " + sentence;
         badWords.ForEach(bad =>
         {
             string badWord = bad;
@@ -65,10 +63,10 @@ public static class Utils
             string stringcompletedCensor = " " + censorSymbolString + "$1";
 
             var pattern = @$" {bad}([\,\.\!\?\:\; ])";
-            unfilteredSentence = Regex.Replace(
-                unfilteredSentence, pattern, stringcompletedCensor, RegexOptions.IgnoreCase);
+            sentence = Regex.Replace(
+                sentence, pattern, stringcompletedCensor, RegexOptions.IgnoreCase);
         });
-        return unfilteredSentence[1..];
+        return sentence[1..];
     }
 
     public static Arr DeleteMockUsers()

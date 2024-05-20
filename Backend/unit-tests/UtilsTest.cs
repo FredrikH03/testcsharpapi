@@ -70,6 +70,7 @@ public class UtilsTest
         //Log(emailDomainsCountedAndSorted);
         var query = SQLQuery(@"SELECT SUBSTR(email, INSTR(email, '@') + 1) AS domain,
         COUNT(*) AS count FROM users GROUP BY domain ORDER BY count DESC;");
+
         //Log(query);
 
         var dbDomainCounts = new Obj();
@@ -78,7 +79,7 @@ public class UtilsTest
             //Console.WriteLine(email);
             dbDomainCounts[$"{email.domain}"] = email.count;
         }
-        //Log(dbDomainCounts);
+        Log(dbDomainCounts);
 
         foreach (var domain in emailDomainsCountedAndSorted.GetKeys())
         {
@@ -95,20 +96,21 @@ public class UtilsTest
 
     }
 
+
+
+    /* [Fact]
+    public void TestRemoveMockUsers()
+    {
+        var read = File.ReadAllText(Path.Combine("json", "mock-users.json"));
+        Arr mockUsers = JSON.Parse(read);
+        Arr usersInDb = SQLQuery("Select * FROM users");
+        Arr emailsInDb = usersInDb.Map(user => user.email);
+        Arr mockUserInDb = mockUsers.Filter(
+            mockUser => emailsInDb.Contains(mockUser.email));
+
+        var result = Utils.DeleteMockUsers();
+
+        Assert.Equal(mockUserInDb.Length, result.Length);
+    } */
 }
-
-/*   [Fact]
-  public void TestRemoveMockUsers()
-  {
-      var read = File.ReadAllText(Path.Combine("json", "mock-users.json"));
-      Arr mockUsers = JSON.Parse(read);
-      Arr usersInDb = SQLQuery("Select * FROM users");
-      Arr emailsInDb = usersInDb.Map(user => user.email);
-      Arr mockUserInDb = mockUsers.Filter(
-          mockUser => emailsInDb.Contains(mockUser.email));
-
-      var result = Utils.DeleteMockUsers();
-
-      Assert.Equal(mockUserInDb.Length, result.Length);
-  } */
 

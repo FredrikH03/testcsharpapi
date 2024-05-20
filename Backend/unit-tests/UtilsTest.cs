@@ -79,7 +79,7 @@ public class UtilsTest
             //Console.WriteLine(email);
             dbDomainCounts[$"{email.domain}"] = email.count;
         }
-        Log(dbDomainCounts);
+        //Log(dbDomainCounts);
 
         foreach (var domain in emailDomainsCountedAndSorted.GetKeys())
         {
@@ -97,8 +97,8 @@ public class UtilsTest
     }
 
 
-
-    /* [Fact]
+/* 
+    [Fact]
     public void TestRemoveMockUsers()
     {
         var read = File.ReadAllText(Path.Combine("json", "mock-users.json"));

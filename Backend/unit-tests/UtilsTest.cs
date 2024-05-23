@@ -60,6 +60,7 @@ public class UtilsTest
         string filteredSentence = Utils.RemoveBadWords(unfilteredSentence);
         Assert.Equal("*****!, i ****!! shell, ****?", filteredSentence);
         Log("filtered sentence: " + filteredSentence);
+        Log("unfiltered sentence: " + unfilteredSentence);
 
     }
 

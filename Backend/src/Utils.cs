@@ -50,11 +50,11 @@ public static class Utils
 
     }
 
-        public static string RemoveBadWords(string sentence, string replaceWith = "---")
+    public static string RemoveBadWords(string sentence)
     {
-        //Arr badWords = JSON.Parse(File.ReadAllText(Path.Combine("json", "bad-words.json")));
+        Arr badWords = JSON.Parse(File.ReadAllText(Path.Combine("json", "bad-words.json")));
         //Log(badWords);
-        
+
         sentence = " " + sentence;
         badWords.ForEach(bad =>
         {
@@ -88,28 +88,32 @@ public static class Utils
         return successfullyDeletedUsers;
 
     }
-    
-    public static Obj CountDomainsFromUserEmails(){
-    
+
+    public static Obj CountDomainsFromUserEmails()
+    {
+
         Obj domainCount = Obj();
         Arr usersInDb = SQLQuery("SELECT * FROM users");
         Arr emailsInDb = usersInDb.Map(user => user.email);
-        
-        foreach(string email in emailsInDb){
+
+        foreach (string email in emailsInDb)
+        {
             string domain = email.Split('@')[1];
-            if(!domainCount.HasKey(domain)){
+            if (!domainCount.HasKey(domain))
+            {
                 domainCount[$"{domain}"] = 0;
             }
-            if(domainCount.HasKey(domain)){
+            if (domainCount.HasKey(domain))
+            {
                 domainCount[$"{domain}"]++;
             }
         }
-        
-        var domainCountArr = domainCount.GetKeys().Map(x => Obj(new{domain = x, count = domainCount[x]}));
-        domainCountArr.Sort((a,b) => b.count - a.count);
+
+        var domainCountArr = domainCount.GetKeys().Map(x => Obj(new { domain = x, count = domainCount[x] }));
+        domainCountArr.Sort((a, b) => b.count - a.count);
         var domainCountSorted = Obj();
         domainCountArr.ForEach(x => domainCountSorted[x.domain] = x.count);
-        
+
         return domainCountSorted;
     }
 }
